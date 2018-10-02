@@ -8,8 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextViewDelegate {
+class ViewController: UIViewController, UITextFieldDelegate{
 
+    @IBAction func keyboardGone(_ sender: UITapGestureRecognizer) {
+        timeiPhoneText.resignFirstResponder()
+        wokeUpText.resignFirstResponder()
+    }
     @IBOutlet weak var timeiPhoneText: UITextField!
     @IBOutlet weak var wokeUpText: UITextField!
     @IBOutlet weak var percentLabel: UILabel!
@@ -29,7 +33,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         else{
             if timeiPhoneText.text!.isEmpty{
                 //create a UIAlertController object
-                let alert=UIAlertController(title: "Warning", message: "You must enter a value for hours on iPhone... since you're obviously using it right now.", preferredStyle: UIAlertControllerStyle.alert)
+                let alert=UIAlertController(title: "Warning", message: "Please enter a nonzero value for hours on iPhone (as you seem to be using it at this moment).", preferredStyle: UIAlertControllerStyle.alert)
                 //create a UIAlertAction object for the button
                 let cancelAction=UIAlertAction(title: "Cancel", style:UIAlertActionStyle.cancel, handler: nil)
                 alert.addAction(cancelAction) //adds the alert action to the alert object
@@ -54,7 +58,8 @@ class ViewController: UIViewController, UITextViewDelegate {
     }
     
     override func viewDidLoad() {
-        wokeUpText
+        timeiPhoneText.delegate=self
+        wokeUpText.delegate=self
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
